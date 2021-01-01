@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:edificiopage/components/leadingButton.dart';
 import 'package:edificiopage/constants.dart';
 import 'package:flutter/material.dart';
@@ -28,27 +27,29 @@ class _EdificioGalleryPageState extends State<EdificioGalleryPage> {
     _currentIndex = widget.currentIndex;
     _pageController = PageController(initialPage: _currentIndex);
     
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,// transparent status bar
-      statusBarIconBrightness: Brightness.dark, // status bar icons' color
-      systemNavigationBarColor: Colors.black, // navigation bar color
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ));
     //SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: <Widget>[
-          _buildPhotoViewGallery(),
-          LeadingButton(
-            icon: AnimatedIcons.menu_close, 
-            setRoute: (context) { Navigator.pop(context);},
-          ),
-        ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent, 
+          statusBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.black,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
+        child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Stack(
+          children: <Widget>[
+            _buildPhotoViewGallery(),
+            LeadingButton(
+              icon: AnimatedIcons.close_menu,
+              setRoute: (context) { Navigator.pop(context);},
+            ),
+          ],
+        ),
       ),
     );
   }  
@@ -61,12 +62,12 @@ class _EdificioGalleryPageState extends State<EdificioGalleryPage> {
         return PhotoViewGalleryPageOptions(
           imageProvider: NetworkImage(widget.imgList[index]),
           tightMode: true,
-          heroAttributes: const PhotoViewHeroAttributes(tag: Text('img')),
-          minScale: PhotoViewComputedScale.contained * 0.8,
+          heroAttributes: const PhotoViewHeroAttributes(tag: Text('txt')),
+          minScale: PhotoViewComputedScale.contained * 0.9,
           maxScale: PhotoViewComputedScale.covered * 1.8,
         );
       },
-      scrollPhysics: const ClampingScrollPhysics(),
+      scrollPhysics: BouncingScrollPhysics(),
       pageController: _pageController,
       loadingBuilder: (BuildContext context, ImageChunkEvent event) {
         return Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(kLightBlue),));

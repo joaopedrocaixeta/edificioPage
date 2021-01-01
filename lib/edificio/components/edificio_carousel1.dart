@@ -2,7 +2,7 @@ import 'package:edificiopage/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-import 'edificio_galery.dart';
+import 'edificio_gallery.dart';
  
 class EdificioCarouselS extends StatefulWidget {
   EdificioCarouselS() : super();
