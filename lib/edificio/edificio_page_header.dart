@@ -5,7 +5,8 @@ import 'package:edificiopage/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'components/edificio_carousel2.dart';
+import 'components/edificio_carousel.dart';
+
 class EdificioPageHeader implements SliverPersistentHeaderDelegate {
   EdificioPageHeader({
     this.minExtent,

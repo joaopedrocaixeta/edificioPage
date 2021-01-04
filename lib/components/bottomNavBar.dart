@@ -39,26 +39,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
               label: "Lista",
               icon:  Icon(Icons.list_rounded),
             ),
-            BottomNavigationBarItem(
-              label: "Lista",
-              icon:  Icon(Icons.list_rounded),
-            ),
-            BottomNavigationBarItem(
-              label: "Lista",
-              icon:  Icon(Icons.list_rounded),
-            ),
-            BottomNavigationBarItem(
-              label: "Lista",
-              icon:  Icon(Icons.list_rounded),
-            ),
-            BottomNavigationBarItem(
-              label: "Lista",
-              icon:  Icon(Icons.list_rounded),
-            ),
-            BottomNavigationBarItem(
-              label: "Lista",
-              icon:  Icon(Icons.list_rounded),
-            ),
           ],
           onTap: (index){
             setState(() {
