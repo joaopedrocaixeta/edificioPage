@@ -4,14 +4,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'edificio_gallery.dart';
  
-class EdificioCarousel extends StatefulWidget {
-  EdificioCarousel() : super();
+class EdificioCarouselL extends StatefulWidget {
+  EdificioCarouselL() : super();
   
   @override
   EdificioCarouselState createState() => EdificioCarouselState();
 }
  
-class EdificioCarouselState extends State<EdificioCarousel> {
+class EdificioCarouselState extends State<EdificioCarouselL> {
   //
   CarouselSlider carouselSlider;
   int _current = 0;
@@ -35,70 +35,66 @@ class EdificioCarouselState extends State<EdificioCarousel> {
   Container build(BuildContext context) {
     return Container(
       alignment: Alignment.topCenter,
-      height: 240,
+      height: MediaQuery.of(context).size.height*0.7,
       child: Stack(
         children: [ 
-          Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  carouselSlider = CarouselSlider(
-                    viewportFraction: 0.8,
-                    height: 230,
-                    initialPage: 0,
-                    enlargeCenterPage: false,
-                    autoPlay: false,
-                    reverse: false,
-                    enableInfiniteScroll: true,
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: (index) {
-                      setState(() {
-                        _current = index;
-                      });
-                    },
-                    items: imgList.map((imgUrl) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return GestureDetector(
-                            onTap: () => Navigator.push(context, _createGalleryRoute(imgList, _current)),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.center,
-                                  image: NetworkImage(
-                                    imgUrl,
-                                  ),
-                                ),
-                                color: kDarkBlue,
-                              ),
-                              
-                            ),
-                          );
-                        },
-                      );
-                    }).toList(),
-                  ),
-                                  
-                ],
-          ),
+          CarouselSlider(
+            viewportFraction: 1.8,
+            height: MediaQuery.of(context).size.height*0.7,
+            initialPage: 0,
+            enlargeCenterPage: false,
+            autoPlay: true,
+            autoPlayInterval: Duration(seconds: 6),
+            reverse: false,
+            enableInfiniteScroll: true,
+            scrollDirection: Axis.horizontal,
+            onPageChanged: (index) {
+              setState(() {
+                _current = index;
+              });
+            },
+
+            items: imgList.map((imgUrl) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return GestureDetector(
+                    onTap: () => Navigator.push(context, _createGalleryRoute(imgList, _current)),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                          image: NetworkImage(
+                            imgUrl,
+                          ),
+                        ),
+                        color: kDarkBlue,
+                      ),
+                    ),
+                  );
+                },
+              );
+            }).toList(),
+          ),             
           Align(
             alignment: Alignment.bottomLeft,
-            child: Container(
-              height: 40,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius:1,
-                    color: kDarkBlue.withOpacity(0.2),
-                    offset: Offset(0,-2)
-                    
-                  ),
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(40),topRight: Radius.circular(40))
+            child: Padding(
+              padding: const EdgeInsets.only(left: 35, bottom: 50),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: map<Widget>(imgList, (index, url) {
+                  return Container(
+                    width: 5.0,
+                    height: 5.0,
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _current == index ? kDarkBlue : kLightGrey,
+                    ),
+                  );
+                }),
               ),
             ),
           ),

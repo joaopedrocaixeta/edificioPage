@@ -1,4 +1,6 @@
 import 'package:edificiopage/constants.dart';
+import 'package:edificiopage/edificio/components/comentario_input.dart';
+import 'package:edificiopage/models/comments.dart';
 import 'package:flutter/material.dart';
 import 'components/comentario.dart';
 import 'edificio_page_header.dart';
@@ -48,14 +50,7 @@ class EdificioPageMain extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 40,),
-                      Comentario(),
-                      Comentario(),
-                      Comentario(),
-                      Comentario(),
-                      Comentario(),
-                      Comentario(),
-                      Comentario(),
-                      Comentario(),
+                      ComentarioInput(),
                     ],
                 ),
               ),
@@ -63,6 +58,16 @@ class EdificioPageMain extends StatelessWidget {
             ]
           ),
         
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate((context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 40, right:40),
+              child: Comentario(comments: comments[index]),
+            );
+          },
+          childCount: comments.length
+          )
         ),
           
         

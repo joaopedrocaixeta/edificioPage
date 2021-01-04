@@ -43,7 +43,7 @@ class _LeadingButtonState extends State<LeadingButton> with SingleTickerProvider
       width: double.infinity,
       height: 100.0,
       child: Padding(
-        padding: EdgeInsets.only(left: 20.0,top:40.0),
+        padding: EdgeInsets.only(left: 20.0,top:40.0, bottom:20.0),
         child: Align(
           alignment: Alignment.topLeft,
           child: Container(

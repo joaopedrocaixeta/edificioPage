@@ -1,88 +1,93 @@
-import 'package:edificiopage/components/cross_plataform_svg.dart';
 import 'package:edificiopage/constants.dart';
+import 'package:edificiopage/edificio/components/like_button.dart';
+import 'package:edificiopage/models/comments.dart';
 import 'package:flutter/material.dart';
 
-class Comentario extends StatefulWidget {
+import 'comentario_dialog.dart';
 
-  @override
-  _ComentarioState createState() => _ComentarioState();
-}
+class Comentario extends StatelessWidget {
+  final Comments comments;
+  const Comentario({Key key, this.comments}) : super(key: key);
 
-class _ComentarioState extends State<Comentario> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 10),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                width: 40.0,
-                height: 40.0,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage("https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg")
-                    )
-                )
-            ),
-            SizedBox(width:10),
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('José'+' - '+'1 mês atrás',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w100,
-                      fontSize: 11,
-                    ),                
-                  ),
-                  SizedBox(height: 8),
-                  Text('Eu costumava ir nessa estação todo dia! Nunca vou me esquecer de quando vi o meu marido pela primeira vez em 1973. Nós ainda éramos crianças, tinha 6 bla bla bla',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    style: TextStyle(fontSize: 14),                
-                  ),
-                  SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        //like
-                        child: Row(
-                          children: [
-                            CrossPlatformSvg.asset("https://svgshare.com/i/Sm_.svg", height: 20),
-                            Text(' 17', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400))
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 5),
-                      GestureDetector(
-                        //comment
-                        child: Row(
-                          children: [
-                            Icon(Icons.comment_rounded, color: kDarkBlue,),
-                            Text(' 4', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400))
-                          ],
-                        ),
-                      ),
-                      Spacer(),
-                      GestureDetector(
-                        //more-denunciar
-                        child: Icon(Icons.more_vert_rounded, color: kDarkBlue,),
-                      ),
-                    ],
+    return Container(
+      child: Column(
+        children: [
+          SizedBox(height: 10),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  width: 40.0,
+                  height: 40.0,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(comments.userImg)
+                      )
                   )
-                ],
               ),
-            )
-          ],
-        ),
-        SizedBox(height: 10),
-        Divider(),
-      ]
+              SizedBox(width:10),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(comments.userName+' - '+comments.timeAgo,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w100,
+                        fontSize: 11,
+                      ),                
+                    ),
+                    SizedBox(height: 8),
+                    GestureDetector(
+                      onTap: (){
+                        showDialog(
+                          context: context,
+                          builder: (ctxt) => new ComentarioDialog(comments: comments),
+                        );
+                      },
+                      child: Text(comments.comment,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        style: TextStyle(fontSize: 14),                
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        LikeButton(likeCount: comments.likeCount),
+                        SizedBox(width: 5),
+                        GestureDetector(
+                          //comment
+                          child: Row(
+                            children: [
+                              Icon(Icons.comment_rounded, color: kDarkBlue,),
+                              Text(
+                                comments.commentCount > 0 ? comments.commentCount.toString() : "", 
+                                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400)
+                              )
+                            ],
+                          ),
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          //more-denunciar
+                          child: Icon(Icons.more_vert_rounded, color: kDarkBlue,),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 10),
+          Divider(),
+        ]
+      ),
     );
   }
 }

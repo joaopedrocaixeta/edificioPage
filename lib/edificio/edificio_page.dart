@@ -1,11 +1,7 @@
-import 'package:edificiopage/components/leadingButton.dart';
-import 'package:edificiopage/constants.dart';
-import 'package:edificiopage/edificio/components/edificio_carousel1.dart';
+import 'package:edificiopage/components/bottomNavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'components/edificio_carousel.dart';
-import 'components/edificio_carousel2.dart';
 import 'edificio_page_content.dart';
 
 class EdificioPage extends StatelessWidget {
@@ -22,10 +18,13 @@ class EdificioPage extends StatelessWidget {
       ),
       child: Scaffold(
           body: EdificioPageMain(),
+          bottomNavigationBar: BottomNavBar(),
         )
     );
   }
+
 }
+
 
 
 /*
