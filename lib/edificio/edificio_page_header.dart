@@ -11,10 +11,14 @@ class EdificioPageHeader implements SliverPersistentHeaderDelegate {
   EdificioPageHeader({
     this.minExtent,
     this.maxExtent,
+    this.imgList,
+    this.legendas
   });
 
   double maxExtent;
   double minExtent;
+  List<String> imgList;
+  List<String> legendas;
 
   @override
   Widget build(
@@ -24,7 +28,7 @@ class EdificioPageHeader implements SliverPersistentHeaderDelegate {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 5),
-          child: EdificioCarouselL(),
+          child: EdificioCarousel(imgList, legendas),
         ),
         LeadingButton(
             icon: AnimatedIcons.arrow_menu, 

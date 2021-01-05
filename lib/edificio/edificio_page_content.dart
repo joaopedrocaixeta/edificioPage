@@ -1,13 +1,15 @@
 import 'package:edificiopage/constants.dart';
 import 'package:edificiopage/edificio/components/comentario_input.dart';
 import 'package:edificiopage/models/comments.dart';
+import 'package:edificiopage/models/edificios.dart';
 import 'package:flutter/material.dart';
 import 'components/comentario.dart';
 import 'edificio_page_header.dart';
 
 class EdificioPageMain extends StatelessWidget {
+  final Edificios edificio;
   const EdificioPageMain({
-    Key key,
+    Key key, this.edificio,
   }) : super(key: key);
 
   @override
@@ -17,7 +19,7 @@ class EdificioPageMain extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       slivers:[
         SliverPersistentHeader(
-          delegate: EdificioPageHeader(minExtent: _heigth*0.15, maxExtent:_heigth*0.7,),
+          delegate: EdificioPageHeader(minExtent: _heigth*0.15, maxExtent:_heigth*0.7, imgList: edificio.images, legendas: edificio.legendas),
         ),
         SliverList(
           delegate: SliverChildListDelegate.fixed(
@@ -28,13 +30,12 @@ class EdificioPageMain extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('1946 - 1976', style: TextStyle(fontWeight: FontWeight.w200),),
+                      Text(edificio.startYear + ' - '+ edificio.endYear, style: TextStyle(fontWeight: FontWeight.w200),),
                       SizedBox(height:5),
-                      Text('Estação Rodoviária Municipal', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),),
+                      Text(edificio.name, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),),
                       SizedBox(height:30),
                       Text(
-                        '''Passados quase um século de sua edificação, a igreja foi demolida com a autorização da Cúria, no ano de 1943 e, no local, teve início a construção de um prédio para abrigar a Estação Rodoviá-ria da cidade, em estilo neocolonial, de planta regular, alongada no sentido norte-sul, de dois pavimentos, possuindo platibanda arrematadas com telhas cerâmicas tipo capa-e-canal.\n\nO andar do térreo foi construído nos limites do terreno e, hoje, seus vãos originais estão emparedados, o andar superior possui planta em forma de “T”. Ambos os andares possuem platibanda, sendo que a fachada norte do andar superior é coroada com um frontão arqueado na maneira corrente da época. Os interiores não apresentam a configuração original, possuem divisórias provisórias em ambos os andares.
-                        ''',
+                        edificio.description,
                         style: TextStyle(fontSize: 16, height:1.5),
                         
                       ),

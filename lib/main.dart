@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         //textTheme: Theme.of(context).textTheme.apply(bodyColor: kDarkBlue),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: EdificioPage(),
+      home: EdificioTabs(),
     );
   }
 }
